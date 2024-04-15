@@ -2,7 +2,6 @@ import sqlite3
 import requests
 import os
 
-
 # reads game data api key from extra file
 def get_api_key(filename):
     with open(filename, 'r', encoding="utf-8-sig") as file:
@@ -63,6 +62,24 @@ def input_25_fbs_team_data(cur, conn, year):
     # return count to check how many rows were added
     return count
 
+def create_media_type(cur, conn):
+    # creates the media_types table, that helps stop duplicate strings
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS media_type (media_id INTEGER PRIMARY KEY, type TEXT UNIQUE)"
+    )
+
+    # list of all possible media types (got from API documentation)
+    media_types = ["tv", "radio", "web", "ppv", "mobile"]
+
+    # loops through list and adds to table
+    for i in range(0,len(media_types)):
+         cur.execute("INSERT OR IGNORE INTO media_type (media_id, type) VALUES (?,?)", (i,media_types[i]))
+    conn.commit()
+
+
+
+
+
 
         
 
@@ -75,6 +92,7 @@ cur = result[0]
 conn = result[1]
 
 create_team_table(cur, conn)
+create_media_type(cur, conn)
 
 
       
