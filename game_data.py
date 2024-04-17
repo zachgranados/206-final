@@ -80,12 +80,59 @@ def create_media_type(cur, conn):
 
 def create_game_table(cur, conn):
     cur.execute(
-        "CREATE TABLE IF NOT EXISTS game_data (game_id INTEGER PRIMARY KEY, home_id INTEGER, away_id INTEGER, home_score INTEGER, away_score INTEGER, media_type INTEGER)"
+        "CREATE TABLE IF NOT EXISTS game_data (game_id INTEGER PRIMARY KEY, home_id INTEGER, away_id INTEGER, home_score INTEGER, away_score INTEGER)"
     )
     conn.commit()
 
 def input_25_games(cur, conn, year):
-    pass
+
+    # format request to api
+    # creating the request to the api
+    url = f"https://api.collegefootballdata.com/games?year={year}&seasonType=regular&division=fbs"
+    headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {get_api_key('api_key.txt')}"
+}
+    response = requests.get(url, headers=headers)
+
+    # loads data into a json
+    if response.status_code == 200:
+        data = response.json()
+    else:
+        print("Request failed with status code:", response.status_code)
+    
+
+    # sort through 25 at a time
+    # goes through data and adds 25 teams at a time
+    count = 0
+    for games in data:
+        # checks if loop as looped 25 times
+        if count < 25:
+            # verify if this game has been added before
+            cur.execute("SELECT COUNT(*) FROM game_data WHERE game_id = ?", (games["id"],))
+            row_count = cur.fetchone()[0]
+    
+        # if row already exists, continue until game id doesn't exist in db
+            if row_count != 0:
+                continue
+            else:
+                id = games["id"]
+                home_id = int(games["home_id"])
+                away_id = int(games["away_id"])
+
+                home_score = int(games["home_points"])
+                away_score = int(games["away_points"])
+                
+                # adds the game data into the database
+                cur.execute("INSERT OR IGNORE INTO game_data (game_id, home_id, away_id, home_score, away_score) VALUES (?,?,?,?,?)", (id, home_id, away_id, home_score, away_score))
+                count+= 1
+        else:
+            break
+    # commits the 25 rows to the database
+    conn.commit()
+    # return count to check how many rows were added
+    print(count)
+
 
 
 
@@ -101,6 +148,8 @@ create_team_table(cur, conn)
 create_media_type(cur, conn)
 create_game_table(cur, conn)
 
+input_25_fbs_team_data(cur, conn, 2023)
+input_25_games(cur, conn, 2023)
 
       
 
