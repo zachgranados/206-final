@@ -76,12 +76,18 @@ def create_media_type(cur, conn):
          cur.execute("INSERT OR IGNORE INTO media_type (media_id, type) VALUES (?,?)", (i,media_types[i]))
     conn.commit()
 
+# set up for game data
+
+def create_game_table(cur, conn):
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS game_data (game_id INTEGER PRIMARY KEY, home_id INTEGER, away_id INTEGER, home_score INTEGER, away_score INTEGER, media_type INTEGER)"
+    )
+    conn.commit()
+
+def input_25_games(cur, conn, year):
+    pass
 
 
-
-
-
-        
 
 
 
@@ -93,6 +99,7 @@ conn = result[1]
 
 create_team_table(cur, conn)
 create_media_type(cur, conn)
+create_game_table(cur, conn)
 
 
       
