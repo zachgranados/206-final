@@ -1,26 +1,15 @@
-import sqlite3
 import requests
+import sqlite3
 import os
+import gameData_setup
+
 
 # reads game data api key from extra file
 def get_api_key(filename):
     with open(filename, 'r', encoding="utf-8-sig") as file:
             key = file.read()
             return key
-
-# create database for football game data
-def setup_db(db_name):
-    path = os.path.dirname(os.path.abspath(__file__))
-    conn = sqlite3.connect(path + "/" + db_name)
-    cur = conn.cursor()
-    return cur, conn
-
-def create_team_table(cur, conn):
-     cur.execute(
-        "CREATE TABLE IF NOT EXISTS teams (team_id INTEGER PRIMARY KEY, school TEXT UNIQUE)"
-    )
-     
-     conn.commit()
+    
 
 def input_25_fbs_team_data(cur, conn, year):
  # creating the request to the api
@@ -61,28 +50,6 @@ def input_25_fbs_team_data(cur, conn, year):
     conn.commit()
     # return count to check how many rows were added
     return count
-
-def create_media_type(cur, conn):
-    # creates the media_types table, that helps stop duplicate strings
-    cur.execute(
-        "CREATE TABLE IF NOT EXISTS media_type (media_id INTEGER PRIMARY KEY, type TEXT UNIQUE)"
-    )
-
-    # list of all possible media types (got from API documentation)
-    media_types = ["tv", "radio", "web", "ppv", "mobile"]
-
-    # loops through list and adds to table
-    for i in range(0,len(media_types)):
-         cur.execute("INSERT OR IGNORE INTO media_type (media_id, type) VALUES (?,?)", (i,media_types[i]))
-    conn.commit()
-
-# set up for game data
-
-def create_game_table(cur, conn):
-    cur.execute(
-        "CREATE TABLE IF NOT EXISTS game_data (game_id INTEGER PRIMARY KEY, home_id INTEGER, away_id INTEGER, home_score INTEGER, away_score INTEGER)"
-    )
-    conn.commit()
 
 def input_25_games(cur, conn, year):
 
@@ -136,19 +103,19 @@ def input_25_games(cur, conn, year):
 
 
 
-
-
-
-# testing functions
-result = setup_db("cfb.db")
+# sets up the database
+result = gameData_setup.setup_db("cfb.db")
 cur = result[0]
 conn = result[1]
 
-create_team_table(cur, conn)
-create_media_type(cur, conn)
-create_game_table(cur, conn)
+# creates all the needed tables
+gameData_setup.create_team_table(cur, conn)
+gameData_setup.create_media_type(cur, conn)
+gameData_setup.create_game_table(cur, conn)
 
+# inputs 25 teams at a time
 input_25_fbs_team_data(cur, conn, 2023)
+# inputs 25 games at a time
 input_25_games(cur, conn, 2023)
 
       
