@@ -2,20 +2,22 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 
-def create_database():
-    conn = sqlite3.connect('attendance_data.db')
-    c = conn.cursor()
-    
+
+# creates the attendance table
+
+def create_attendance_table(cur, conn):
     # Create the table if it doesn't exist
-    c.execute('''CREATE TABLE IF NOT EXISTS AttendanceData
-                 (School TEXT, 
-                 '2023 Average' INTEGER, 
-                 '2022 Average' INTEGER, 
-                 'Percentage Change' REAL)''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS attendance
+                 (team_id TEXT, 
+                 'Average2023' INTEGER, 
+                 'Average2022' INTEGER, 
+                 'percent_change' REAL)''')
     
     conn.commit()
-    conn.close()
+   
 
+
+# gets the needed data 
 def scrape_data():
     url = 'https://www.d1ticker.com/2023-fbs-attendance-trends/'
     response = requests.get(url)
@@ -49,27 +51,77 @@ def scrape_data():
         return None
 
 
-def insert_data(school_data):
-    conn = sqlite3.connect('attendance_data.db')
-    c = conn.cursor()
-    c.execute('''DELETE FROM AttendanceData''')   
-    # Insert data into the table
-    for school, data in school_data.items():
-        c.execute("INSERT INTO AttendanceData (School, '2023 Average', '2022 Average', 'Percentage Change') VALUES (?, ?, ?, ?)",
-                  (school, data['2023_average'], data['2022_average'], data['percentage_change']))
-        print(f"Inserted data for {school}")
-        
+def insert_25_attendance(school_data, cur, conn):
+    # school_data is a dict with school name as its title 
+
+    #tracks number of schools added
+    count = 0
+
+    # schools = key so it is the string of the school name
+    for schools in school_data:
+        if count < 25:
+            # get id from teams table given school
+
+            # handles exceptions with formatting etcs
+            if schools == "Army West Point":
+                team = "Army"
+            elif schools == "ECU":
+                team = "East Carolina"
+            elif schools == "FIU":
+                team = "Florida International"
+            elif schools == "Miami (FL)":
+                team = "Miami"
+            elif schools == "UConn":
+                team = "Connecticut"
+            elif schools == "UTSA":
+                team = "UT San Antonio"
+            elif schools == "Hawaii":
+                team = "Hawai'i"
+            elif schools == "Louisiana–Monroe":
+                team = "Louisiana Monroe"
+            elif schools == "Massachusetts":
+                team = "UMass"
+            elif schools == "San Jose State":
+                team = "San José State"
+            elif schools == "Southern Miss":
+                team = "Southern Mississippi"
+            else:
+                team = schools
+
+            cur.execute("SELECT team_id FROM teams WHERE school = ?", (team,))
+            team_id = cur.fetchall()[0][0]
+
+
+
+            
+
+            # verify if this team has been added before
+            cur.execute("SELECT COUNT(*) FROM attendance WHERE team_id = ?", (team_id,))
+            test = cur.fetchone()[0]
+    
+            # if row already exists, continue
+            if test != 0:
+                continue
+            else:
+                avg2023_str = school_data[schools]["2023_average"]
+                avg2023 = int(avg2023_str.replace(",", ""))
+
+                avg2022_str = school_data[schools]["2022_average"]
+                avg2022 = int(avg2022_str.replace(",", ""))
+
+                percent_change_str = school_data[schools]["percentage_change"]
+                percent_change = float(percent_change_str.replace("%", ""))
+            
+                cur.execute("INSERT OR IGNORE INTO attendance (team_id, Average2023, Average2022, percent_change) VALUES (?,?,?,?)", (team_id, avg2023, avg2022, percent_change))
+                count+= 1
+        else:
+            break
+
+        # commits the 25 rows to the database
     conn.commit()
-    conn.close()
+    # return count to check how many rows were added
+    print(count)
+    return count
 
-def main():
-    create_database()
-    data = scrape_data()
-    if data:
-        insert_data(data)
-        print("Data inserted successfully.")
-    else:
-        print("No data available.")
 
-if __name__ == "__main__":
-    main()
+    
