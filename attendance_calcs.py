@@ -13,7 +13,7 @@ WHERE
     results = cur.fetchall()
     return results
 
-def write_calcs(data):
+def write_calcs(data, file):
     count = len(data)
 
     total = 0
@@ -22,18 +22,11 @@ def write_calcs(data):
 
     average_increase = total / len(data)
 
-    # Specify the file name
-    file_name = "attendance_calculations.txt"
-
-# Open the file in write mode
-    with open(file_name, "w") as file:
     # Write the header
-        file.write(f"{count} Teams Increased Their Attendance\n")
-        file.write(f"The Average Increase in Attendance is {average_increase}%\n")
-        file.write("\n")
-        file.write("(Team, Attendance Growth(%)):\n")
-        file.write("\n")
-        for teams in data:
-            file.write(str(teams) + "\n")
-
-    print("File 'attendance_calculations.txt' created successfully.")
+    file.write(f"{count} Teams Increased Their Attendance\n")
+    file.write(f"The Average Increase in Attendance is {average_increase}%\n")
+    file.write("\n")
+    file.write("(Team, Attendance Growth(%)):\n")
+    file.write("\n")
+    for teams in data:
+        file.write(str(teams) + "\n")

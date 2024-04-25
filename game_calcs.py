@@ -60,24 +60,14 @@ GROUP BY
     return team_win_rate
 
 
-def write_data(data):
-    # Specify the file name
-    file_name = "game_calculations.txt"
-
-# Open the file in write mode
-    with open(file_name, "w") as file:
-    # Write the header
-        file.write("Home Team Name : Home Win Percentage\n")
+def write_data(data, file):
+# Write the header
+    file.write("Home Team Name : Home Win Percentage\n")
     
-        # Write the data
-        for team, win_percentage in data.items():
-            file.write(f"{team} : {win_percentage:.2f}\n")
+    # Write the data
+    for team, win_percentage in data.items():
+        file.write(f"{team} : {win_percentage:.2f}\n")
 
-    print("File 'game_calculations.txt' created successfully.")
-
-
-
-# create a visualization
 
 
 
