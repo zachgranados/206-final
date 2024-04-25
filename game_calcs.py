@@ -62,6 +62,10 @@ GROUP BY
     return team_win_rate
 
 
+def write_data(data):
+    pass
+
+
 
 
 

@@ -111,7 +111,6 @@ conn = result[1]
 
 # creates all the needed tables
 gameData_setup.create_team_table(cur, conn)
-gameData_setup.create_media_type(cur, conn)
 gameData_setup.create_game_table(cur, conn)
 
 # inputs 25 teams at a time
