@@ -104,25 +104,6 @@ def input_25_games(cur, conn, year):
 
 
 
-# sets up the database
-result = gameData_setup.setup_db("cfb.db")
-cur = result[0]
-conn = result[1]
-
-# creates all the needed tables
-gameData_setup.create_team_table(cur, conn)
-gameData_setup.create_game_table(cur, conn)
-
-# inputs 25 teams at a time
-input_25_fbs_team_data(cur, conn, 2023)
-# inputs 25 games at a time
-input_25_games(cur, conn, 2023)
-
-
-# calculates home win rates
-game_calcs.home_team_wins(cur, conn)
-
-
       
 
 
