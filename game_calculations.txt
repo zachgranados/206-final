@@ -1,0 +1,134 @@
+Home Team Name : Home Win Percentage
+Auburn : 0.43
+UAB : 0.67
+South Alabama : 0.67
+Arkansas : 0.38
+Arizona State : 0.25
+Arizona : 0.83
+San Diego State : 0.43
+San José State : 0.67
+Stanford : 0.00
+California : 0.50
+UCLA : 0.67
+USC : 0.57
+Colorado State : 0.67
+Colorado : 0.33
+Connecticut : 0.17
+Florida State : 1.00
+Jacksonville State : 0.83
+Florida : 0.57
+South Florida : 0.67
+Georgia Tech : 0.43
+Georgia : 1.00
+Hawai'i : 0.57
+Iowa State : 0.50
+Boise State : 0.83
+Northwestern : 0.71
+Indiana : 0.43
+Notre Dame : 0.86
+Kentucky : 0.57
+Louisville : 0.86
+Western Kentucky : 0.67
+LSU : 1.00
+Boston College : 0.43
+UMass : 0.17
+Maryland : 0.57
+Michigan State : 0.43
+Michigan : 1.00
+Minnesota : 0.57
+Missouri : 0.88
+Ole Miss : 1.00
+Duke : 0.86
+East Carolina : 0.17
+NC State : 0.71
+North Carolina : 0.88
+Wake Forest : 0.50
+Nebraska : 0.57
+Rutgers : 0.71
+New Mexico State : 0.83
+New Mexico : 0.33
+Syracuse : 0.71
+Bowling Green : 0.60
+Miami (OH) : 0.80
+Ohio State : 1.00
+Ohio : 0.83
+Oklahoma State : 0.86
+Oklahoma : 1.00
+Tulsa : 0.33
+Oregon State : 0.83
+Penn State : 0.86
+Temple : 0.43
+Pittsburgh : 0.50
+Clemson : 0.86
+Memphis : 0.67
+Vanderbilt : 0.33
+Baylor : 0.12
+Rice : 0.57
+Texas A&M : 0.86
+Houston : 0.43
+North Texas : 0.50
+Texas : 0.88
+BYU : 0.67
+Utah : 0.86
+James Madison : 0.83
+Virginia : 0.33
+Virginia Tech : 0.67
+Washington : 1.00
+Washington State : 0.67
+Wisconsin : 0.57
+Marshall : 0.83
+West Virginia : 0.83
+Fresno State : 0.83
+Georgia Southern : 0.83
+Old Dominion : 0.67
+Louisiana : 0.67
+Coastal Carolina : 0.67
+Texas State : 0.83
+Utah State : 0.50
+Alabama : 0.88
+Mississippi State : 0.50
+Army : 0.57
+Illinois : 0.43
+Air Force : 0.67
+Akron : 0.40
+Appalachian State : 0.83
+Arkansas State : 0.67
+Ball State : 0.50
+Buffalo : 0.17
+UCF : 0.67
+Central Michigan : 0.80
+Cincinnati : 0.14
+Eastern Michigan : 0.83
+Florida Atlantic : 0.33
+Florida International : 0.33
+Georgia State : 0.50
+Iowa : 0.75
+Kansas : 0.71
+Kansas State : 0.86
+Kent State : 0.20
+Liberty : 1.00
+Louisiana Tech : 0.33
+Miami : 0.71
+Middle Tennessee : 0.67
+Navy : 0.67
+Charlotte : 0.17
+Louisiana Monroe : 0.33
+UNLV : 0.71
+Nevada : 0.17
+Northern Illinois : 0.50
+Oregon : 1.00
+Purdue : 0.43
+Sam Houston State : 0.33
+SMU : 1.00
+Southern Mississippi : 0.33
+South Carolina : 0.71
+TCU : 0.57
+Tennessee : 0.88
+UT San Antonio : 0.83
+UTEP : 0.17
+Texas Tech : 0.67
+Toledo : 0.86
+Troy : 0.86
+Tulane : 0.75
+Western Michigan : 0.60
+Wyoming : 1.00

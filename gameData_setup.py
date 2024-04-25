@@ -21,21 +21,6 @@ def create_team_table(cur, conn):
      
      conn.commit()
 
-# creates media-type table to store different broadcasting types
-def create_media_type(cur, conn):
-    # creates the media_types table, that helps stop duplicate strings
-    cur.execute(
-        "CREATE TABLE IF NOT EXISTS media_type (media_id INTEGER PRIMARY KEY, type TEXT UNIQUE)"
-    )
-
-    # list of all possible media types (got from API documentation)
-    media_types = ["tv", "radio", "web", "ppv", "mobile"]
-
-    # loops through list and adds to table
-    for i in range(0,len(media_types)):
-         cur.execute("INSERT OR IGNORE INTO media_type (media_id, type) VALUES (?,?)", (i,media_types[i]))
-    conn.commit()
-
 # creates the game_data table
 def create_game_table(cur, conn):
     cur.execute(
