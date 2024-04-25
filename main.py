@@ -3,6 +3,7 @@ import game_data
 import game_calcs
 import game_visualizations
 import attendance_data
+import attendance_calcs
 
 # carries all the function calls to create the database and run calculations
 
@@ -26,14 +27,15 @@ results = attendance_data.scrape_data()
 # inputs 25 teams into attendance data
 attendance_data.insert_25_attendance(results, cur, conn)
 
-
-
-
 # calculates home win rates
 results = game_calcs.home_team_wins(cur, conn)
 
 # prints data
 game_calcs.write_data(results)
 
+# calculates teams that have increased their attendance
+data = attendance_calcs.num_of_increases(cur, conn)
+attendance_calcs.write_calcs(data)
+
 # creates visualization
-game_visualizations.create_scatter_plot(results)
+#game_visualizations.create_scatter_plot(results)

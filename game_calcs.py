@@ -1,5 +1,3 @@
-import csv
-import requests
 import sqlite3
 
 # calculate the home win rate of each team
