@@ -2,6 +2,7 @@ import requests
 import sqlite3
 import os
 import gameData_setup
+import game_calcs
 
 
 # reads game data api key from extra file
@@ -117,6 +118,11 @@ gameData_setup.create_game_table(cur, conn)
 input_25_fbs_team_data(cur, conn, 2023)
 # inputs 25 games at a time
 input_25_games(cur, conn, 2023)
+
+
+# calculates home win rates
+game_calcs.home_team_wins(cur, conn)
+
 
       
 
