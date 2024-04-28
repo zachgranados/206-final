@@ -26,7 +26,4 @@ def write_calcs(data, file):
     file.write(f"{count} Teams Increased Their Attendance\n")
     file.write(f"The Average Increase in Attendance is {average_increase}%\n")
     file.write("\n")
-    file.write("(Team, Attendance Growth(%)):\n")
-    file.write("\n")
-    for teams in data:
-        file.write(str(teams) + "\n")
+  
