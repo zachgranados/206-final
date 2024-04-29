@@ -22,3 +22,34 @@ def create_barGraph(attendance_data):
     plt.yticks(rotation=45, fontsize=8)
     plt.show()
 
+def extra_credit(cur, conn, team_win_rate):
+
+    results = []
+    for teams in team_win_rate:
+        cur.execute("SELECT team_id FROM teams WHERE school = ?", (teams,))
+        team_id = cur.fetchall()[0][0]
+
+        cur.execute("SELECT Average2023 FROM attendance WHERE team_id = ?", (team_id,))
+        attendance = cur.fetchall()[0][0]
+        
+        win_rate = team_win_rate[teams]
+
+        results.append((attendance, win_rate))
+    
+    attendance, win_rate = zip(*results)
+    attendance = list(attendance)
+    win_rate = list(win_rate)
+
+    # Create scatter plot using Seaborn with increased jitter
+    sns.scatterplot(x=attendance, y=win_rate)
+    plt.title('Attendance vs Win Rate')
+    plt.xlabel('Attendance')
+    plt.ylabel('Win Rate')
+
+    # Show the plot
+    plt.show()
+
+
+    
+    
+

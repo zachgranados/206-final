@@ -52,6 +52,8 @@ def main():
         attendance_visulizations.create_barGraph(attendance_results)
     #extra credit viz
         game_visualizations.create_extra_credit(cur, conn)
+    # extra credit viz
+        attendance_visulizations.extra_credit(cur, conn, game_results)
 
 
 main()
