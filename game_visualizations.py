@@ -24,3 +24,26 @@ def create_barGraph(data):
     plt.tight_layout()
     plt.show()
 
+
+def create_extra_credit(cur, conn):
+    cur.execute("SELECT home_score, away_score FROM game_data")
+    data = cur.fetchall()
+
+    # Extract home scores and away scores
+    home_scores, away_scores = zip(*data)
+
+    # Determine the outcome (home win or away win) for each game
+    outcomes = ['Home Wins' if home_score > away_score else 'Away Wins' for home_score, away_score in data]
+
+    # Define colors based on the outcome
+    colors = ['blue' if outcome == 'Home Wins' else 'red' for outcome in outcomes]
+
+    # Create scatter plot using Seaborn
+    sns.scatterplot(x=home_scores, y=away_scores,hue=outcomes, palette={'Home Wins': 'blue', 'Away Wins': 'red'}, legend='full')
+    plt.title('Home Score vs Away Score')
+    plt.xlabel('Home Score')
+    plt.ylabel('Away Score')
+
+# Show the plot using Matplotlib
+    plt.show()
+
