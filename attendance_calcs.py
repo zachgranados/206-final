@@ -1,5 +1,3 @@
-import sqlite3
-
 def num_of_increases(cur, conn):
     cur.execute("""
 SELECT teams.school AS School, attendance.percent_change AS Percent_Growth

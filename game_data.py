@@ -1,9 +1,4 @@
 import requests
-import sqlite3
-import os
-import gameData_setup
-import game_calcs
-
 
 # reads game data api key from extra file
 def get_api_key(filename):
@@ -99,7 +94,7 @@ def input_25_games(cur, conn, year):
     # commits the 25 rows to the database
     conn.commit()
     # return count to check how many rows were added
-    print(count)
+    return count
 
 
 

@@ -1,11 +1,8 @@
 import sqlite3
-import requests
 import os
 
-# this file is used to store all the functions that set up tables in the cfb.db that store game / media data
+# this file is used to store all the functions that set up tables in the cfb.db
 
-
-# ________________________ TABLE SETUP _____________________________
 # create database for football game data
 def setup_db(db_name):
     path = os.path.dirname(os.path.abspath(__file__))
@@ -27,6 +24,19 @@ def create_game_table(cur, conn):
         "CREATE TABLE IF NOT EXISTS game_data (game_id INTEGER PRIMARY KEY, home_id INTEGER, away_id INTEGER, home_score INTEGER, away_score INTEGER)"
     )
     conn.commit()
+
+# creates the attendance table
+
+def create_attendance_table(cur, conn):
+    # Create the table if it doesn't exist
+    cur.execute('''CREATE TABLE IF NOT EXISTS attendance
+                 (team_id TEXT, 
+                 'Average2023' INTEGER, 
+                 'Average2022' INTEGER, 
+                 'percent_change' REAL)''')
+    
+    conn.commit()
+
 
 
 

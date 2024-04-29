@@ -1,22 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
-
-
-# creates the attendance table
-
-def create_attendance_table(cur, conn):
-    # Create the table if it doesn't exist
-    cur.execute('''CREATE TABLE IF NOT EXISTS attendance
-                 (team_id TEXT, 
-                 'Average2023' INTEGER, 
-                 'Average2022' INTEGER, 
-                 'percent_change' REAL)''')
-    
-    conn.commit()
    
-
-
 # gets the needed data 
 def scrape_data():
     url = 'https://www.d1ticker.com/2023-fbs-attendance-trends/'
@@ -87,13 +72,10 @@ def insert_25_attendance(school_data, cur, conn):
                 team = "Southern Mississippi"
             else:
                 team = schools
-
+            
+            #print(team)
             cur.execute("SELECT team_id FROM teams WHERE school = ?", (team,))
             team_id = cur.fetchall()[0][0]
-
-
-
-            
 
             # verify if this team has been added before
             cur.execute("SELECT COUNT(*) FROM attendance WHERE team_id = ?", (team_id,))
@@ -120,7 +102,6 @@ def insert_25_attendance(school_data, cur, conn):
         # commits the 25 rows to the database
     conn.commit()
     # return count to check how many rows were added
-    print(count)
     return count
 
 

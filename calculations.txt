@@ -1,7 +1,9 @@
+Results from Attendance Calculations:
 95 Teams Increased Their Attendance
 The Average Increase in Attendance is 7.326315789473684%
 
 
+Results from Game Data Calculations:
 Home Team Name : Home Win Percentage
 Auburn : 0.43
 UAB : 0.67

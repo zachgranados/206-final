@@ -1,4 +1,3 @@
-import sqlite3
 
 # calculate the home win rate of each team
 def home_team_wins(cur, conn):
